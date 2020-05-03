@@ -1,0 +1,34 @@
+{
+  "name": "clinkv2",
+  "version": "1.0.0",
+  "description": "Clink version 2.0",
+  "main": "src/server.js",
+  "scripts": {
+    "clean": "echo \"Removing modules and all public,distributions...\"; rm -rf node_modules/ dist/ public/",
+    "test": "echo \"Error: no tests\"",
+    "build": "echo \"Building client...\"; webpack",
+    "dev": "echo \"Starting client-dev server and watching changes...\"; webpack-dev-server",
+    "babel-run": "echo \"(dev only)Running server without compile...\"; babel-node src/server.js",
+    "compile": "echo \"Compile server code...\"; babel src/server.js -d dist",
+    "start": "echo \"Build all and run server...\"; npm run build && npm run compile && node dist/server.js"
+  },
+  "author": "chuanyui",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
