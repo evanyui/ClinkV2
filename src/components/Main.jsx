@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types';
 
-export default class Main extends React.Component {
+export default class Main extends Component {
 
   constructor() {
     super()
@@ -9,9 +10,19 @@ export default class Main extends React.Component {
   render() {
     return (
       <div>
-        <p>HELLO WORLD</p>
+        <ul>
+          {this.props.urls.map((url, i) => {
+            return (<p>{i}: {url}</p>)
+          })}
+        </ul>
+        <p>CurrentTab: {this.props.urls[this.props.currentTab]}</p>
       </div>
     )
   }
 
+}
+
+Main.propTypes = {
+  urls: PropTypes.array.isRequired,
+  currentTab: PropTypes.number.isRequired
 }
