@@ -5,11 +5,15 @@ import { number } from 'prop-types'
 
 const SERVICE_ENDPOINT = 'http://localhost:3000/'
 
+
 // Send request to get session data and render the page
 const xhr = new XMLHttpRequest()
 xhr.onreadystatechange = () => {
   if (xhr.readyState == XMLHttpRequest.DONE) {
     const {urls, currentTab} = xhr.response
+    // Dev use placeholder
+    // const urls = ['www.google.com', 'www.amazon.com', 'www.example.com', 'www.github.com', 'www.facebook.com']
+    // const currentTab = 0
     ReactDOM.render(<Main urls={urls} currentTab={currentTab}/>, document.getElementById('app'))
   }
 }
