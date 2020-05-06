@@ -10,10 +10,10 @@ const SERVICE_ENDPOINT = 'http://localhost:3000/'
 const xhr = new XMLHttpRequest()
 xhr.onreadystatechange = () => {
   if (xhr.readyState == XMLHttpRequest.DONE) {
-    const {urls, currentTab} = xhr.response
+    // const {urls, currentTab} = xhr.response
     // Dev use placeholder
-    // const urls = ['www.google.com', 'www.amazon.com', 'www.example.com', 'www.github.com', 'www.facebook.com']
-    // const currentTab = 0
+    const urls = ['www.google.com', 'www.amazon.com', 'www.example.com', 'www.github.com', 'www.facebook.com']
+    const currentTab = 1
     ReactDOM.render(<Main urls={urls} currentTab={currentTab}/>, document.getElementById('app'))
   }
 }
