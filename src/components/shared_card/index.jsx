@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardMedia from '@material-ui/core/CardMedia'
@@ -50,7 +49,7 @@ class SharedCard extends PureComponent {
 SharedCard.propTypes = {
   url: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
-  handleCheck: PropTypes.func.isRequired, // Not used
+  // handleCheck: PropTypes.func.isRequired, // Not used
   handleClick: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired
 }

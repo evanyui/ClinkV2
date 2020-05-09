@@ -4,8 +4,9 @@ import Container from '@material-ui/core/Container'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { withStyles } from "@material-ui/core/styles"
-import SharedCard from '../shared_card/SharedCard'
-import { Button } from '@material-ui/core'
+import SharedCard from '../shared_card'
+import Controls from '../controls'
+import { SERVICE_ENDPOINT } from '../../client'
 
 const styles = theme => ({
   gridList: {
@@ -22,7 +23,8 @@ const styles = theme => ({
 class Upper extends PureComponent {
 
   state = {
-    [this.props.currentTab]: true // Set the origin tab to checked as default
+    [this.props.currentTab]: true, // Set the origin tab to checked as default
+    hash: "1234" // random generate 4 digits as default
   }
 
   render() {
@@ -39,24 +41,27 @@ class Upper extends PureComponent {
                   name={i.toString()} 
                   url={url} 
                   checked={checked} 
-                  handleCheck={this.handleCheck.bind(this)} // Not used
+                  // handleCheck={this.handleCheck.bind(this)} // Not used
                   handleClick={this.handleClick.bind(this)}
                 />
               </GridListTile>
             )
           })}
         </GridList>
-        <Button onClick={this.shareUrls.bind(this)}>Share</Button>
+        <Controls 
+          handleChange={this.handleChange.bind(this)} 
+          shareUrls={this.shareUrls.bind(this)} 
+        />
       </Container>
     )
   }
 
   // Not used due to double updating on check box
-  handleCheck(event) {
-    this.setState({
-      [event.target.name]: event.target.checked
-    })
-  }
+  // handleCheck(event) {
+  //   this.setState({
+  //     [event.target.name]: event.target.checked
+  //   })
+  // }
 
   handleClick(name) {
     this.setState({
@@ -64,16 +69,33 @@ class Upper extends PureComponent {
     })
   }
 
-  shareUrls() {
-    const urls = this._getCheckedUrls()
-    // TODO: send request to server to share
-    console.log(urls)
-  }
-
   _getCheckedUrls() {
     const results = this.props.urls.filter((url, i) => this.state[i])
     return results
   }
+
+  handleChange(event) {
+    this.setState({
+      hash: event.target.value
+    })
+  }
+
+  shareUrls() {
+    const urls = this._getCheckedUrls()
+    const xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        // TODO: subscribe to the socket topic
+      }
+    }
+    xhr.open("POST", `${SERVICE_ENDPOINT}api/share`, true)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify({
+      hash: this.state.hash,
+      urls
+    }))
+  }
+
 }
 
 Upper.propTypes = {

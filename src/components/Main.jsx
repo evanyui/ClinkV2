@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
-import Upper from './upper/Upper';
+import Upper from './upper';
 
 export default class Main extends Component {
 
