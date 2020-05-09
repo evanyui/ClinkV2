@@ -26,7 +26,6 @@ class SharedCard extends PureComponent {
         <CardActionArea onClick={() => this.props.handleClick(this.props.name)}>
           <CardHeader 
             action={
-              // <Checkbox name={this.props.name} checked={this.props.checked} onChange={this.props.handleCheck} />
               <Checkbox name={this.props.name} checked={this.props.checked} disableRipple/>
             }
           />
@@ -49,7 +48,6 @@ class SharedCard extends PureComponent {
 SharedCard.propTypes = {
   url: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
-  // handleCheck: PropTypes.func.isRequired, // Not used
   handleClick: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired
 }

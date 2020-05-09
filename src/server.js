@@ -1,13 +1,20 @@
 import Express from 'express'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import SocketIO from 'socket.io';
+import http from 'http';
 
 // Setup express app
 const app = Express()
 app.use(Express.json())
 
+// Setup socket.io
+const server = http.Server(app)
+const io = new SocketIO(server)
+
 // Globals
 const sessionData = {}
+// TODO: clean memory with some scheme
 const urlsDB = {} // using mem temporarily
 
 app.get('/', (req, res) => {
@@ -38,8 +45,8 @@ app.post('/api/storeSession', function (req, res) {
   res.sendStatus(200)
 })
 
+// NOT used in client, just for dev
 app.post('/api/getSession', function (req, res) {
-  // TODO: validate inputs
   const {id} = req.body
   console.log(`Grabbing session: ${id}`)
 
@@ -49,8 +56,8 @@ app.post('/api/getSession', function (req, res) {
   res.json(data)
 })
 
+// NOT used in client, just for dev
 app.post('/api/share', function (req, res) {
-  // TODO: validate inputs
   const { hash, urls } = req.body
   console.log(`sharing urls: ${urls} with hash ${hash}`)
 
@@ -59,8 +66,22 @@ app.post('/api/share', function (req, res) {
   res.sendStatus(200)
 })
 
+io.on('connection', socket => {
+  const sessionId = socket.handshake.query.sessionId;
+  console.log(`Grabbing data with sessionId: ${sessionId}`)
+  const data = sessionData[sessionId]
+  delete sessionData[sessionId]
+  socket.emit('syncSession', data)
+
+  // When user share urls
+  socket.on('share', (hash, urls) => {
+    console.log(`sharing urls: ${urls} with hash ${hash}`)
+    urlsDB[hash] = urls
+  })
+})
+
 // TODO : use socket.io to get urls
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log('listening on port 3000!')
 })

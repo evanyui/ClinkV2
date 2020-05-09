@@ -4,6 +4,11 @@ import Upper from './upper';
 
 export default class Main extends Component {
 
+  constructor(props) {
+    super(props)
+
+  }
+
   render() {
     return (
       <div>
@@ -15,6 +20,6 @@ export default class Main extends Component {
 }
 
 Main.propTypes = {
-  urls: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   currentTab: PropTypes.number.isRequired
 }

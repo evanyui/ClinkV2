@@ -6,7 +6,7 @@ import GridListTile from '@material-ui/core/GridListTile'
 import { withStyles } from "@material-ui/core/styles"
 import SharedCard from '../shared_card'
 import Controls from '../controls'
-import { SERVICE_ENDPOINT } from '../../client'
+import { SERVICE_ENDPOINT, socket } from '../../client'
 
 const styles = theme => ({
   gridList: {
@@ -41,7 +41,6 @@ class Upper extends PureComponent {
                   name={i.toString()} 
                   url={url} 
                   checked={checked} 
-                  // handleCheck={this.handleCheck.bind(this)} // Not used
                   handleClick={this.handleClick.bind(this)}
                 />
               </GridListTile>
@@ -55,13 +54,6 @@ class Upper extends PureComponent {
       </Container>
     )
   }
-
-  // Not used due to double updating on check box
-  // handleCheck(event) {
-  //   this.setState({
-  //     [event.target.name]: event.target.checked
-  //   })
-  // }
 
   handleClick(name) {
     this.setState({
@@ -82,18 +74,19 @@ class Upper extends PureComponent {
 
   shareUrls() {
     const urls = this._getCheckedUrls()
-    const xhr = new XMLHttpRequest()
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState == XMLHttpRequest.DONE) {
-        // TODO: subscribe to the socket topic
-      }
-    }
-    xhr.open("POST", `${SERVICE_ENDPOINT}api/share`, true)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({
-      hash: this.state.hash,
-      urls
-    }))
+    // const xhr = new XMLHttpRequest()
+    // xhr.onreadystatechange = () => {
+    //   if (xhr.readyState == XMLHttpRequest.DONE) {
+    //     // TODO: subscribe to the socket topic
+    //   }
+    // }
+    // xhr.open("POST", `${SERVICE_ENDPOINT}api/share`, true)
+    // xhr.setRequestHeader('Content-Type', 'application/json')
+    // xhr.send(JSON.stringify({
+    //   hash: this.state.hash,
+    //   urls
+    // }))
+    socket.emit('share', this.state.hash, urls)
   }
 
 }
