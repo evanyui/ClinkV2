@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from "@material-ui/core/styles"
-import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
 
 const styles = theme => ({
 })
@@ -14,14 +14,14 @@ class Controls extends PureComponent {
     const { classes } = this.props;
 
     return (
-      <Container>
+      <Box display="flex" alignItems="center" justifyContent="center">
         <TextField 
           onChange={this.props.handleChange} 
           label="Hash" 
           variant="outlined"
         />
-        <Button onClick={this.props.shareUrls}>Share</Button>
-      </Container>
+        <IconButton onClick={this.props.shareUrls}>Share</IconButton>
+      </Box>
     )
   }
 

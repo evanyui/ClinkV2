@@ -1,11 +1,10 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
+import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
 import { withStyles } from "@material-ui/core/styles"
-import SharedCard from '../shared_card'
-import Controls from '../controls'
+import Controls from './controls'
+import CardList from './cardList'
 import { SERVICE_ENDPOINT, socket } from '../../client'
 
 const styles = theme => ({
@@ -17,13 +16,13 @@ const styles = theme => ({
   card: {
     margin: 20,
     height: '80%' // TODO: need to verify if this works on different size
-  }
+  },
 })
 
 class Upper extends PureComponent {
 
   state = {
-    [this.props.currentTab]: true, // Set the origin tab to checked as default
+    checkMaps: {[this.props.currentTab]: true}, // Set the origin tab to checked as default
     hash: "1234" // random generate 4 digits as default
   }
 
@@ -31,39 +30,36 @@ class Upper extends PureComponent {
     const { classes } = this.props;
 
     return (
-      <Container fixed>
-        <GridList className={classes.gridList} spacing={10} cols={4}>
-          {this.props.urls.map((url, i) => {
-            const checked = this.state[i]==undefined? false : this.state[i]
-            return (
-              <GridListTile key={i}>
-                <SharedCard 
-                  name={i.toString()} 
-                  url={url} 
-                  checked={checked} 
-                  handleClick={this.handleClick.bind(this)}
-                />
-              </GridListTile>
-            )
-          })}
-        </GridList>
-        <Controls 
-          handleChange={this.handleChange.bind(this)} 
-          shareUrls={this.shareUrls.bind(this)} 
-        />
+      <Container disableGutters={true}>
+        <Grid container direction="column" alignItems="stretch" justify="space-around" spacing={5}>
+          <Grid item xs={12}>
+            <CardList 
+              urls={this.props.urls} 
+              handleClick={this.handleClick.bind(this)} 
+              checkMaps={this.state.checkMaps}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controls 
+              handleChange={this.handleChange.bind(this)} 
+              shareUrls={this.shareUrls.bind(this)} 
+            />
+          </Grid>
+        </Grid>
       </Container>
     )
   }
 
   handleClick(name) {
-    this.setState({
-      [name]: !this.state[name]
+    this.setState(prevState => {
+      const checkMaps = {...prevState.checkMaps}
+      checkMaps[name] = !checkMaps[name]
+      return {checkMaps}
     })
   }
 
   _getCheckedUrls() {
-    const results = this.props.urls.filter((url, i) => this.state[i])
-    return results
+    return this.props.urls.filter((url, i) => this.state[i])
   }
 
   handleChange(event) {
@@ -74,18 +70,6 @@ class Upper extends PureComponent {
 
   shareUrls() {
     const urls = this._getCheckedUrls()
-    // const xhr = new XMLHttpRequest()
-    // xhr.onreadystatechange = () => {
-    //   if (xhr.readyState == XMLHttpRequest.DONE) {
-    //     // TODO: subscribe to the socket topic
-    //   }
-    // }
-    // xhr.open("POST", `${SERVICE_ENDPOINT}api/share`, true)
-    // xhr.setRequestHeader('Content-Type', 'application/json')
-    // xhr.send(JSON.stringify({
-    //   hash: this.state.hash,
-    //   urls
-    // }))
     socket.emit('share', this.state.hash, urls)
   }
 

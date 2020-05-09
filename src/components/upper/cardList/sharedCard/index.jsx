@@ -7,13 +7,9 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import Checkbox from '@material-ui/core/Checkbox'
 import { withStyles } from "@material-ui/core/styles";
-import { CardActions } from '@material-ui/core'
+import CardContent from '@material-ui/core/CardContent'
 
 const styles = theme => ({
-  card: {
-    margin: 10,
-    height: '80%', // TODO: need to verify if this works on different size
-  }
 })
 
 class SharedCard extends PureComponent {
@@ -22,23 +18,20 @@ class SharedCard extends PureComponent {
     const { classes } = this.props;
 
     return (
-      <Card className={classes.card}>
+      <Card>
         <CardActionArea onClick={() => this.props.handleClick(this.props.name)}>
           <CardHeader 
             action={
               <Checkbox name={this.props.name} checked={this.props.checked} disableRipple/>
             }
           />
-          {
-            // TODO:  CardMEdia has no height
-          }
-          <CardMedia height={100} image='https://cdn.geekwire.com/wp-content/uploads/2014/09/amazon-new-look-620x444.jpg' />
-        </CardActionArea>
-        <CardActions>
+          <CardContent>
             <Typography>
               {this.props.url}
             </Typography>
-        </CardActions>
+          </CardContent>
+          <CardMedia height={100} image='https://cdn.geekwire.com/wp-content/uploads/2014/09/amazon-new-look-620x444.jpg' />
+        </CardActionArea>
       </Card>
     )
   }
