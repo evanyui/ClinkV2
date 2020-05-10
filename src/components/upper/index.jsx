@@ -13,10 +13,6 @@ const styles = theme => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
-  card: {
-    margin: 20,
-    height: '80%' // TODO: need to verify if this works on different size
-  },
 })
 
 class Upper extends PureComponent {
@@ -42,7 +38,7 @@ class Upper extends PureComponent {
           <Grid item xs={12}>
             <Controls 
               handleChange={this.handleChange.bind(this)} 
-              shareUrls={this.shareUrls.bind(this)} 
+              handleSubmit={this.handleSubmit.bind(this)} 
             />
           </Grid>
         </Grid>
@@ -59,25 +55,25 @@ class Upper extends PureComponent {
   }
 
   _getCheckedUrls() {
-    return this.props.urls.filter((url, i) => this.state[i])
+    return this.props.urls.filter((url, i) => this.state.checkMaps[i])
   }
 
   handleChange(event) {
-    this.setState({
-      hash: event.target.value
-    })
+    const hash = event.target.value.replace(/\s+/g, '').toLowerCase()
+    this.setState({hash})
   }
 
-  shareUrls() {
+  handleSubmit() {
     const urls = this._getCheckedUrls()
-    socket.emit('share', this.state.hash, urls)
+    this.props.shareUrls({hash: this.state.hash, urls})
   }
 
 }
 
 Upper.propTypes = {
   urls: PropTypes.array.isRequired,
-  currentTab: PropTypes.number.isRequired
+  currentTab: PropTypes.number.isRequired,
+  shareUrls: PropTypes.func.isRequired
 }
 
-export default withStyles(styles, {withTheme: true})(Upper);
+export default withStyles(styles, {withTheme: true})(Upper)

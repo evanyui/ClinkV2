@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent'
 const styles = theme => ({
 })
 
-class SearchCard extends PureComponent {
+class ResultCard extends PureComponent {
 
   render() {
     const { classes } = this.props;
@@ -33,13 +33,13 @@ class SearchCard extends PureComponent {
   }
 
   handleClick() {
-    console.log("CLICK!")
+    window.open(this.props.url)
   }
 
 }
 
-SearchCard.propTypes = {
+ResultCard.propTypes = {
   url: PropTypes.string.isRequired,
 }
 
-export default withStyles(styles, {withTheme: true})(SearchCard);
+export default withStyles(styles, {withTheme: true})(ResultCard);

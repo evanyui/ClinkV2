@@ -20,7 +20,7 @@ class Controls extends PureComponent {
           label="Hash" 
           variant="outlined"
         />
-        <IconButton onClick={this.props.shareUrls}>Share</IconButton>
+        <IconButton onClick={this.props.handleSubmit}>Share</IconButton>
       </Box>
     )
   }
@@ -29,7 +29,7 @@ class Controls extends PureComponent {
 
 Controls.propTypes = {
   handleChange: PropTypes.func.isRequired,
-  shareUrls: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired
 }
 
 export default withStyles(styles, {withTheme: true})(Controls);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { withStyles } from "@material-ui/core/styles"
-import SharedCard from './sharedCard'
+import TabsCard from './tabsCard'
 
 const styles = theme => ({
   gridList: {
@@ -25,7 +25,7 @@ class CardList extends PureComponent {
           const checked = this.props.checkMaps[i]==undefined? false : this.props.checkMaps[i]
           return (
             <GridListTile style={{height: 'None'}} key={i}>
-              <SharedCard 
+              <TabsCard 
                 name={i.toString()} 
                 url={url} 
                 checked={checked} 

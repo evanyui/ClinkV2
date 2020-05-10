@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent'
 const styles = theme => ({
 })
 
-class SharedCard extends PureComponent {
+class TabsCard extends PureComponent {
 
   render() {
     const { classes } = this.props;
@@ -38,11 +38,11 @@ class SharedCard extends PureComponent {
 
 }
 
-SharedCard.propTypes = {
+TabsCard.propTypes = {
   url: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired
 }
 
-export default withStyles(styles, {withTheme: true})(SharedCard);
+export default withStyles(styles, {withTheme: true})(TabsCard);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from "@material-ui/core/styles"
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-import SearchCard from './searchCard'
+import ResultCard from './resultCard'
 
 const styles = theme => ({
   gridList: {
@@ -17,13 +17,12 @@ class CardGrid extends PureComponent {
   render() {
     const { classes } = this.props;
 
-    const urls = ['www.google.com', 'www.amazon.com','www.google.com', 'www.amazon.com','www.google.com', 'www.amazon.com', 'www.example.com', 'www.github.com', 'www.facebook.com']
     return (
       <GridList className={classes.gridList} spacing={10} cols={4}>
-        {urls.map((url, i) => {
+        {this.props.results.map((url, i) => {
           return (
             <GridListTile style={{height: 'None'}} key={i}>
-              <SearchCard 
+              <ResultCard 
                 url={url} 
               />
             </GridListTile>
@@ -36,6 +35,7 @@ class CardGrid extends PureComponent {
 }
 
 CardGrid.propTypes = {
+  results: PropTypes.array
 }
 
 export default withStyles(styles, {withTheme: true})(CardGrid);
