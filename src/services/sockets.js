@@ -7,8 +7,7 @@ export default class Sockets {
     this.socket = io(SERVICE_ENDPOINT, {query: "sessionId=" + window.location.hash.substring(1)})
 
     this.socket.on('update', urls => {
-      console.log('update! ' + urls)
-      // afterUpdate(urls)
+      afterUpdate(urls)
     })
 
     this.socket.on('result', results => {

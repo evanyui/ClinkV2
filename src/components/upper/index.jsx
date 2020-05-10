@@ -66,6 +66,10 @@ class Upper extends PureComponent {
   handleSubmit() {
     const urls = this._getCheckedUrls()
     this.props.shareUrls({hash: this.state.hash, urls})
+    // Clear all checkboxes after sharing 
+    this.setState({
+      checkMaps: {}
+    })
   }
 
 }

@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles"
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box';
-import { SERVICE_ENDPOINT, socket } from '../../../client'
 
 const styles = theme => ({
 })
@@ -12,8 +11,7 @@ const styles = theme => ({
 class Search extends PureComponent {
 
   state = {
-    prevHashKey: "",
-    hashKey: ""
+    focus: false
   }
 
   render() {
@@ -22,31 +20,22 @@ class Search extends PureComponent {
     return (
       <Box display="flex" alignItems="center" justifyContent="center">
         <TextField 
-          onChange={this.handleChange.bind(this)} 
-          label="Search for a hash" 
+          onChange={this.props.updateHashKey} 
+          onFocus={() => this.setState({focus: true})}
+          onBlur={() => this.setState({focus: false})}
+          label={this.state.focus? "Search for a hash" : (this.props.value || "Search for a hash")}
           variant="outlined"
         />
-        <IconButton onClick={this.handleClick.bind(this)}>Search</IconButton>
+        <IconButton onClick={this.props.search}>Search</IconButton>
       </Box>
     )
-  }
-
-  handleChange(event) {
-    const hashKey = event.target.value
-    this.setState(prevState => ({
-      prevHashKey: prevState.hashKey,
-      hashKey: hashKey
-    }))
-  }
-
-  handleClick() {
-    this.props.search({hashKey: this.state.hashKey, prevHashKey: this.state.prevHashKey})
   }
 }
 
 Search.propTypes = {
-  clearGrid: PropTypes.func.isRequired,
-  search: PropTypes.func.isRequired
+  search: PropTypes.func.isRequired,
+  updateHashKey: PropTypes.func.isRequired,
+  value: PropTypes.string
 }
 
 export default withStyles(styles, {withTheme: true})(Search);

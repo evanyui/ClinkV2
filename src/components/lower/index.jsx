@@ -20,7 +20,11 @@ class Lower extends PureComponent {
     return (
       <Grid container direction="column" alignItems="stretch" justify="space-around" spacing={5}>
         <Grid item xs={12}>
-          <Search search={this.props.search} clearGrid={() => {}}/>
+          <Search 
+            search={this.props.search} 
+            updateHashKey={this.props.updateHashKey}
+            value={this.props.value}
+          />
         </Grid>
         <Grid item xs={12}>
           <CardGrid results={this.props.results}/>
@@ -33,7 +37,9 @@ class Lower extends PureComponent {
 
 Lower.propTypes = {
   results: PropTypes.array,
-  search: PropTypes.func.isRequired
+  search: PropTypes.func.isRequired,
+  updateHashKey: PropTypes.func.isRequired,
+  value: PropTypes.string
 }
 
 export default withStyles(styles, {withTheme: true})(Lower);

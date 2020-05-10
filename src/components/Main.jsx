@@ -37,7 +37,9 @@ class Main extends PureComponent {
   state = {
     urls: [],
     currentTab: -1,
-    results: []
+    results: [],
+    prevHashKey: "",
+    hashKey: ""
   }
 
   constructor(props) {
@@ -47,7 +49,9 @@ class Main extends PureComponent {
   componentWillMount() {
     this.socketsClient = new Sockets({
       afterUpdate: results => {
-        this.setState({results})
+        this.setState(prevState => ({
+          results: [...prevState.results, ...results],
+        }))
       },
       afterResults: results => {
         this.setState({results})
@@ -78,6 +82,8 @@ class Main extends PureComponent {
             <Lower 
               results={this.state.results} 
               search={this.search.bind(this)}
+              updateHashKey={this.updateHashKey.bind(this)}
+              value={this.state.value}
             />
           </Box>
         </Grid>
@@ -87,10 +93,25 @@ class Main extends PureComponent {
 
   shareUrls({hash, urls}) {
     this.socketsClient.shareUrls({hash, urls})
+
+    // Auto subscribe to new hashKey
+    this.setState(prevState => ({
+      prevHashKey: prevState.hashKey,
+      hashKey: hash,
+      value: hash
+    }), this.search)
   }
 
-  search({hashKey, prevHashKey}) {
-    this.socketsClient.search({hashKey, prevHashKey})
+  search() {
+    this.socketsClient.search({hashKey: this.state.hashKey, prevHashKey: this.state.prevHashKey})
+  }
+
+  updateHashKey(event) {
+    const hashKey = event.target.value
+    this.setState(prevState => ({
+      prevHashKey: prevState.hashKey,
+      hashKey: hashKey
+    }))
   }
 
 }

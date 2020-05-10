@@ -49,16 +49,19 @@ io.on('connection', socket => {
 
   // When user share urls
   socket.on('share', (hash, urls) => {
+    console.log('Shared ' + urls + ' with ' + hash)
     urlsDB[hash] = urlsDB[hash]? [...urlsDB[hash], ...urls] : urls
-    socket.broadcast.to(hash).emit('update', urls)
+    socket.to(hash).emit('update', urls)
   })
 
   // When user search
   socket.on('search', (hashKey, prevHashKey) => {
+    console.log('Search with ' + hashKey)
     socket.leave(prevHashKey)
     socket.join(hashKey)
 
     const results = urlsDB[hashKey]
+    console.log('Results: ' + results)
     socket.emit('result', results)
   })
 })
