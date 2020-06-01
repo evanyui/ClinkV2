@@ -3,6 +3,8 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import SocketIO from 'socket.io';
 import http from 'http';
+import MemDB from './memDB';
+// TODO: use https://www.npmjs.com/package/babel-plugin-module-resolver to use alias and able to build with correct import path
 
 // Setup express app
 const app = Express()
@@ -14,8 +16,8 @@ const io = new SocketIO(server)
 
 // Globals
 const sessionData = {}
-// TODO: clean memory with some scheme
-const urlsDB = {} // using mem temporarily
+// TODO: replace with proper DB when data handling exceeds memory capacity
+const urlsDB = new MemDB({ttl: 5000})
 
 app.get('/', (req, res) => {
   res.send(ReactDOMServer.renderToString(
@@ -50,7 +52,8 @@ io.on('connection', socket => {
   // When user share urls
   socket.on('share', (hash, urls) => {
     console.log('Shared ' + urls + ' with ' + hash)
-    urlsDB[hash] = urlsDB[hash]? [...urlsDB[hash], ...urls] : urls
+    // urlsDB[hash] = urlsDB[hash]? [...urlsDB[hash], ...urls] : urls
+    urlsDB.put({hash: hash, url: urls})
     socket.to(hash).emit('update', urls)
   })
 
@@ -60,7 +63,8 @@ io.on('connection', socket => {
     socket.leave(prevHashKey)
     socket.join(hashKey)
 
-    const results = urlsDB[hashKey]
+    // const results = urlsDB[hashKey]
+    const results = urlsDB.get(hashKey)
     console.log('Results: ' + results)
     socket.emit('result', results)
   })
