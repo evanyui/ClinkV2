@@ -1,5 +1,5 @@
 import {strict as assert} from 'assert'
-import MemDB from '../memDB'
+import MemDB from '../../src/lib/memDB'
 
 describe('memDB', function() {
 

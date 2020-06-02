@@ -5,12 +5,12 @@
   "main": "src/server.js",
   "scripts": {
     "clean": "echo \"Removing modules and all public,distributions...\"; rm -rf node_modules/ dist/ public/",
-    "test": "mocha **/tests/*.test.js --require @babel/register",
+    "test": "mocha ./tests/**/*.test.js --require @babel/register",
     "build": "echo \"Building client...\"; webpack",
     "dev": "echo \"Starting client-dev server and watching changes...\"; webpack-dev-server",
     "babel-run": "echo \"(dev only)Running server without compile...\"; babel-node src/server.js",
-    "compile": "echo \"Compile server code...\"; babel src/server.js src/lib/*.js -d dist",
-    "start": "echo \"Build all and run server...\"; npm run build && npm run compile && node dist/server.js"
+    "compile": "npm run test && echo \"Compiling server code...\"; babel src/server.js -d dist && babel src/lib/ -d dist/lib",
+    "start": "npm run build && npm run compile && echo \"Built successfully, running server...\" && node dist/server.js"
   },
   "author": "chuanyui",
   "license": "ISC",

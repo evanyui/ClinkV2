@@ -3,8 +3,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import SocketIO from 'socket.io';
 import http from 'http';
-import MemDB from './memDB';
-// TODO: use https://www.npmjs.com/package/babel-plugin-module-resolver to use alias and able to build with correct import path
+import MemDB from './lib/memDB';
 
 // Setup express app
 const app = Express()
