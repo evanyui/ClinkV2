@@ -4,8 +4,12 @@ import { withStyles } from "@material-ui/core/styles"
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
+import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 
 const styles = theme => ({
+  input: {
+    borderRadius: 20
+  }
 })
 
 class Controls extends PureComponent {
@@ -16,11 +20,15 @@ class Controls extends PureComponent {
     return (
       <Box display="flex" alignItems="center" justifyContent="center">
         <TextField 
+          className={classes.input}
           onChange={this.props.handleChange} 
           label="Hash" 
           variant="outlined"
+          size="small"
         />
-        <IconButton onClick={this.props.handleSubmit}>Share</IconButton>
+        <IconButton onClick={this.props.handleSubmit}>
+          <CheckCircleOutlineRoundedIcon fontSize="large" color="primary"/>
+        </IconButton>
       </Box>
     )
   }

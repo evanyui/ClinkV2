@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { withStyles } from "@material-ui/core/styles"
-import TabsCard from './tabsCard'
+import TabCard from './tabCard'
 
 const styles = theme => ({
   gridList: {
     flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
+    paddingBottom: '10px'
   },
 })
 
@@ -25,7 +26,7 @@ class CardList extends PureComponent {
           const checked = this.props.checkMaps[i]==undefined? false : this.props.checkMaps[i]
           return (
             <GridListTile style={{height: 'None'}} key={i}>
-              <TabsCard 
+              <TabCard 
                 name={i.toString()} 
                 url={url} 
                 checked={checked} 

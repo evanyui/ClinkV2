@@ -8,3 +8,11 @@
   background-color: rgba(0,0,0,0.3); 
   -webkit-border-radius: 2px; 
 }
+
+body {
+  margin: 0px;
+}
+
+.MuiGridListTile-tile {
+  overflow: unset !important;
+}

@@ -10,19 +10,27 @@ import { withStyles } from "@material-ui/core/styles";
 import CardContent from '@material-ui/core/CardContent'
 
 const styles = theme => ({
+  tabCard: {
+    boxShadow: "4px 4px 8px rgba(0,0,0,0.4)"
+  }
 })
 
-class TabsCard extends PureComponent {
+class TabCard extends PureComponent {
 
   render() {
     const { classes } = this.props;
 
     return (
-      <Card>
+      <Card className={classes.tabCard}>
         <CardActionArea onClick={() => this.props.handleClick(this.props.name)}>
           <CardHeader 
             action={
-              <Checkbox name={this.props.name} checked={this.props.checked} disableRipple/>
+              <Checkbox 
+                name={this.props.name} 
+                checked={this.props.checked} 
+                style={{color: 'orange'}}
+                disableRipple
+              />
             }
           />
           <CardContent>
@@ -38,11 +46,11 @@ class TabsCard extends PureComponent {
 
 }
 
-TabsCard.propTypes = {
+TabCard.propTypes = {
   url: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired
 }
 
-export default withStyles(styles, {withTheme: true})(TabsCard);
+export default withStyles(styles, {withTheme: true})(TabCard);
