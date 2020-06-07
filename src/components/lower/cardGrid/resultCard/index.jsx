@@ -8,6 +8,12 @@ import { withStyles } from "@material-ui/core/styles";
 import CardContent from '@material-ui/core/CardContent'
 
 const styles = theme => ({
+  card: {
+    boxShadow: "4px 4px 8px rgba(0,0,0,0.4)",
+  },
+  actionArea: {
+    height: "140px"
+  }
 })
 
 class ResultCard extends PureComponent {
@@ -17,16 +23,13 @@ class ResultCard extends PureComponent {
 
     return (
       <Card className={classes.card}>
-        <CardActionArea onClick={this.handleClick.bind(this)}>
-          {
-            // TODO:  CardMEdia has no height
-          }
-          <CardMedia height={100} image='https://cdn.geekwire.com/wp-content/uploads/2014/09/amazon-new-look-620x444.jpg' />
+        <CardActionArea className={classes.actionArea} onClick={this.handleClick.bind(this)}>
           <CardContent>
-            <Typography>
+            <Typography align="center">
               {this.props.url}
             </Typography>
           </CardContent>
+          <CardMedia height={100} image='https://cdn.geekwire.com/wp-content/uploads/2014/09/amazon-new-look-620x444.jpg' />
         </CardActionArea>
       </Card>
     )

@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import Lower from './lower'
 import Box from '@material-ui/core/Box';
 import Sockets from '../services/sockets'
+import Fab from '@material-ui/core/Fab';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 import './Main.css'
 
@@ -22,6 +24,11 @@ const styles = theme => ({
   },
   lower: {
     padding: '20px'
+  },
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2)
   }
 })
 
@@ -62,29 +69,34 @@ class Main extends PureComponent {
   render() {
     const { classes } = this.props;
     return (
-      <Grid container direction="column" alignItems="stretch" justify="space-around" spacing={0}>
-        <Grid item xs={12}>
-          <Box className={classes.upper}>
-            {(this.state.urls) && 
-              <Upper 
-                key={this.state.currentTab} // required to rebuild component afterSync() returns a value
-                urls={this.state.urls} 
-                currentTab={this.state.currentTab}
-                shareUrls={this.shareUrls.bind(this)}
-            />}
-          </Box>
+      <div>
+        <Grid container direction="column" alignItems="stretch" justify="space-around" spacing={0}>
+          <Grid item xs={12}>
+            <Box className={classes.upper}>
+              {(this.state.urls) && 
+                <Upper 
+                  key={this.state.currentTab} // required to rebuild component afterSync() returns a value
+                  urls={this.state.urls} 
+                  currentTab={this.state.currentTab}
+                  shareUrls={this.shareUrls.bind(this)}
+              />}
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box className={classes.lower}>
+              <Lower 
+                results={this.state.results} 
+                search={this.search.bind(this)}
+                updateHashKey={this.updateHashKey.bind(this)}
+                value={this.state.value}
+              />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Box className={classes.lower}>
-            <Lower 
-              results={this.state.results} 
-              search={this.search.bind(this)}
-              updateHashKey={this.updateHashKey.bind(this)}
-              value={this.state.value}
-            />
-          </Box>
-        </Grid>
-      </Grid>
+        <Fab color="default" size="medium" className={classes.fab}>
+          <InfoOutlinedIcon></InfoOutlinedIcon>
+        </Fab>
+      </div>
     )
   }
 

@@ -9,6 +9,7 @@ const styles = theme => ({
   gridList: {
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
+    paddingBottom: '10px'
   },
 })
 
@@ -18,7 +19,7 @@ class CardGrid extends PureComponent {
     const { classes } = this.props;
 
     return (
-      <GridList className={classes.gridList} spacing={10} cols={4}>
+      <GridList className={classes.gridList} spacing={10} cols={5}>
         {this.props.results.map((url, i) => {
           return (
             <GridListTile style={{height: 'None'}} key={i}>

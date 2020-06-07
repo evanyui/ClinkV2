@@ -4,6 +4,8 @@ import { withStyles } from "@material-ui/core/styles"
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import Box from '@material-ui/core/Box';
+import Tooltip from '@material-ui/core/Tooltip';
+import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 
 const styles = theme => ({
 })
@@ -17,16 +19,23 @@ class Search extends PureComponent {
   render() {
     const { classes } = this.props;
 
+    const tooltip = "Search a hash key to get shared pages"
+
     return (
       <Box display="flex" alignItems="center" justifyContent="center">
-        <TextField 
-          onChange={this.props.updateHashKey} 
-          onFocus={() => this.setState({focus: true})}
-          onBlur={() => this.setState({focus: false})}
-          label={this.state.focus? "Search for a hash" : (this.props.value || "Search for a hash")}
-          variant="outlined"
-        />
-        <IconButton onClick={this.props.search}>Search</IconButton>
+        <Tooltip title={tooltip} aria-label="">
+          <TextField 
+            onChange={this.props.updateHashKey} 
+            onFocus={() => this.setState({focus: true})}
+            onBlur={() => this.setState({focus: false})}
+            label={this.state.focus? "Search for a hash" : (this.props.value || "Search")}
+            variant="outlined"
+            size="small"
+          />
+        </Tooltip>
+        <IconButton onClick={this.props.search}>
+          <SearchRoundedIcon fontSize="large" color="default"/>
+        </IconButton>
       </Box>
     )
   }

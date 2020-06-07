@@ -30,6 +30,7 @@ class Lower extends PureComponent {
           <CardGrid results={this.props.results}/>
         </Grid>
       </Grid>
+    
     )
   }
 

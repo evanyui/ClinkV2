@@ -34,7 +34,7 @@ class TabCard extends PureComponent {
             }
           />
           <CardContent>
-            <Typography>
+            <Typography align="center">
               {this.props.url}
             </Typography>
           </CardContent>

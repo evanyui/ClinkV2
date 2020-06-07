@@ -4,12 +4,10 @@ import { withStyles } from "@material-ui/core/styles"
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
-import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
+import Tooltip from '@material-ui/core/Tooltip';
+import SendRoundedIcon from '@material-ui/icons/SendRounded';
 
 const styles = theme => ({
-  input: {
-    borderRadius: 20
-  }
 })
 
 class Controls extends PureComponent {
@@ -17,17 +15,21 @@ class Controls extends PureComponent {
   render() {
     const { classes } = this.props;
 
+    const tooltip = "Enter a hash key to share your selected tabs"
+
     return (
       <Box display="flex" alignItems="center" justifyContent="center">
-        <TextField 
-          className={classes.input}
-          onChange={this.props.handleChange} 
-          label="Hash" 
-          variant="outlined"
-          size="small"
-        />
+        <Tooltip title={tooltip} aria-label="">
+          <TextField 
+            className={classes.input}
+            onChange={this.props.handleChange} 
+            label="Share" 
+            variant="outlined"
+            size="small"
+          />
+        </Tooltip>
         <IconButton onClick={this.props.handleSubmit}>
-          <CheckCircleOutlineRoundedIcon fontSize="large" color="primary"/>
+          <SendRoundedIcon fontSize="large" color="default"/>
         </IconButton>
       </Box>
     )
