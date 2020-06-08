@@ -3,16 +3,26 @@ import PropTypes from 'prop-types'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardActionArea from '@material-ui/core/CardActionArea'
-import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import Checkbox from '@material-ui/core/Checkbox'
 import { withStyles } from "@material-ui/core/styles";
 import CardContent from '@material-ui/core/CardContent'
+import Tooltip from '@material-ui/core/Tooltip';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const styles = theme => ({
   tabCard: {
-    boxShadow: "4px 4px 8px rgba(0,0,0,0.4)"
-  }
+    boxShadow: "6px 6px 8px rgba(0,0,0,0.4)"
+  },
+  actionArea: {
+    height: "150px",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    display: "flex",
+  },
+  header: {
+    display: "contents",
+  },
 })
 
 class TabCard extends PureComponent {
@@ -21,26 +31,34 @@ class TabCard extends PureComponent {
     const { classes } = this.props;
 
     return (
-      <Card className={classes.tabCard}>
-        <CardActionArea onClick={() => this.props.handleClick(this.props.name)}>
-          <CardHeader 
-            action={
-              <Checkbox 
-                name={this.props.name} 
-                checked={this.props.checked} 
-                style={{color: 'orange'}}
-                disableRipple
-              />
-            }
-          />
-          <CardContent>
-            <Typography align="center">
-              {this.props.url}
-            </Typography>
-          </CardContent>
-          <CardMedia height={100} image='https://cdn.geekwire.com/wp-content/uploads/2014/09/amazon-new-look-620x444.jpg' />
-        </CardActionArea>
-      </Card>
+      <Tooltip title={this.props.url}>
+        <Card className={classes.tabCard}>
+          <CardActionArea 
+            className={classes.actionArea} 
+            style={{backgroundImage: "url(https://cdn.geekwire.com/wp-content/uploads/2014/09/amazon-new-look-620x444.jpg)"}}
+            onClick={() => this.props.handleClick(this.props.name)}
+          >
+            <CardHeader 
+              className={classes.header}
+              action={
+                <Checkbox 
+                  name={this.props.name} 
+                  checked={this.props.checked} 
+                  style={this.props.checked? {color: '#f2a178'} : {color: 'transparent'}}
+                  icon={<CheckCircleIcon/>}
+                  checkedIcon={<CheckCircleIcon/>}
+                  disableRipple
+                />
+              }
+            />
+            {/* <CardContent>
+              <Typography align="center">
+                {this.props.url}
+              </Typography>
+            </CardContent> */}
+          </CardActionArea>
+        </Card>
+      </Tooltip>
     )
   }
 

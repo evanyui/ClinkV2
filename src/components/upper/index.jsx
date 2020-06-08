@@ -19,7 +19,7 @@ class Upper extends PureComponent {
 
   state = {
     checkMaps: {[this.props.currentTab]: true}, // Set the origin tab to checked as default
-    hash: "1234" // random generate 4 digits as default
+    hash: "1234" // TODO: random generate 4 digits as default
   }
 
   render() {

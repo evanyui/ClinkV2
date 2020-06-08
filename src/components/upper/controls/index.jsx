@@ -5,12 +5,16 @@ import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip';
-import SendRoundedIcon from '@material-ui/icons/SendRounded';
+import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
 
 const styles = theme => ({
 })
 
 class Controls extends PureComponent {
+
+  state = {
+    focus: false
+  }
 
   render() {
     const { classes } = this.props;
@@ -23,13 +27,16 @@ class Controls extends PureComponent {
           <TextField 
             className={classes.input}
             onChange={this.props.handleChange} 
-            label="Share" 
+            onFocus={() => this.setState({focus: true})}
+            onBlur={() => this.setState({focus: false})}
+            label={this.state.focus? "Share with hash" : (this.props.value || "Share")}
             variant="outlined"
             size="small"
+            color="primary"
           />
         </Tooltip>
         <IconButton onClick={this.props.handleSubmit}>
-          <SendRoundedIcon fontSize="large" color="default"/>
+          <DoneRoundedIcon fontSize="medium" color={this.state.focus? "primary" : "default"}/>
         </IconButton>
       </Box>
     )

@@ -8,10 +8,14 @@ import Box from '@material-ui/core/Box';
 import Sockets from '../services/sockets'
 import Fab from '@material-ui/core/Fab';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import './Main.css'
 
 const styles = theme => ({
+  palette: {
+
+  },
   "MuiGrid-root": {
     flexGrow: 1
   },
@@ -20,10 +24,16 @@ const styles = theme => ({
   },
   upper: {
     backgroundColor: 'orange',
+    background: 'linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(252,176,69,1) 100%);',
     padding: '20px'
   },
   lower: {
-    padding: '20px'
+    padding: '20px',
+    // TODO: background image not working
+    background: 'url(file:///Users/chuanyui/workplace/clinkV2/assets/clink_banner.png)',
+    backgroundPosition: 'center',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat'
   },
   fab: {
     position: "fixed",
@@ -68,8 +78,21 @@ class Main extends PureComponent {
 
   render() {
     const { classes } = this.props;
+
+    const clinkTheme = createMuiTheme({
+      palette: {
+        primary: {
+          main: '#f2a178'
+        },
+        secondary: {
+          main: '#B26A8B'
+        }
+      }
+
+    })
+
     return (
-      <div>
+      <ThemeProvider theme={clinkTheme}>
         <Grid container direction="column" alignItems="stretch" justify="space-around" spacing={0}>
           <Grid item xs={12}>
             <Box className={classes.upper}>
@@ -93,10 +116,13 @@ class Main extends PureComponent {
             </Box>
           </Grid>
         </Grid>
-        <Fab color="default" size="medium" className={classes.fab}>
+        {
+          // TODO:  create about popup modal when click on Fab
+        }
+        <Fab color="secondary" size="medium" className={classes.fab}>
           <InfoOutlinedIcon></InfoOutlinedIcon>
         </Fab>
-      </div>
+      </ThemeProvider>
     )
   }
 

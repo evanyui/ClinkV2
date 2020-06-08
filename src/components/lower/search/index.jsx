@@ -28,13 +28,14 @@ class Search extends PureComponent {
             onChange={this.props.updateHashKey} 
             onFocus={() => this.setState({focus: true})}
             onBlur={() => this.setState({focus: false})}
-            label={this.state.focus? "Search for a hash" : (this.props.value || "Search")}
+            label="Search"
             variant="outlined"
             size="small"
+            color="primary"
           />
         </Tooltip>
         <IconButton onClick={this.props.search}>
-          <SearchRoundedIcon fontSize="large" color="default"/>
+          <SearchRoundedIcon fontSize="medium" color={this.state.focus? "primary" : "default"}/>
         </IconButton>
       </Box>
     )
