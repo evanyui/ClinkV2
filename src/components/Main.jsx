@@ -46,12 +46,12 @@ class Main extends PureComponent {
 
   state = {
   // dev
-    urls: ['www.something.com', 'www.google.com', 'www.amazon.com', 'www.example.com', 'www.github.com', 'www.facebook.com'],
-    currentTab: 1,
-    results: ['www.placeholder.com'],
-    // urls: [],
-    // currentTab: -1,
-    // results: [],
+    // urls: ['www.something.com', 'www.google.com', 'www.amazon.com', 'www.example.com', 'www.github.com', 'www.facebook.com'],
+    // currentTab: 1,
+    // results: ['www.placeholder.com'],
+    urls: [],
+    currentTab: -1,
+    results: [],
     prevHashKey: "",
     hashKey: ""
   }

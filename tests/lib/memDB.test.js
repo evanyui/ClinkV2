@@ -20,14 +20,14 @@ describe('memDB', function() {
 
   describe('putBatch()', function() {
     it('should add multiple urls in batches', function() {
-      memDB.putBatch({hash: '123', urls: ['www.test1.com', 'www.test2.com']})
-      assert.equal(memDB.get('123')[3], 'www.test2.com')
+      memDB.putBatch({hash: '321', urls: ['www.test1.com', 'www.test2.com']})
+      assert.equal(memDB.get('321')[1], 'www.test2.com')
     })
   })
 
   describe('get()', function() {
     it('should get urls from existing channel', function() {
-      assert.equal(memDB.get('123').length, 4)
+      assert.equal(memDB.get('321').length, 2)
     })
   })
 

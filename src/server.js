@@ -50,9 +50,10 @@ io.on('connection', socket => {
 
   // When user share urls
   socket.on('share', (hash, urls) => {
-    console.log('Shared ' + urls + ' with ' + hash)
+    console.log('Shared  with ' + hash)
+    console.log(urls)
     // urlsDB[hash] = urlsDB[hash]? [...urlsDB[hash], ...urls] : urls
-    urlsDB.put({hash: hash, url: urls})
+    urlsDB.putBatch({hash: hash, urls: urls})
     socket.to(hash).emit('update', urls)
   })
 
@@ -64,7 +65,8 @@ io.on('connection', socket => {
 
     // const results = urlsDB[hashKey]
     const results = urlsDB.get(hashKey)
-    console.log('Results: ' + results)
+    console.log("Results: ")
+    console.log(results)
     socket.emit('result', results)
   })
 })
